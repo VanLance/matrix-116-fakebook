@@ -1,14 +1,21 @@
-from flask import render_template, flash, redirect, flash, url_for
+from flask import render_template, flash, redirect, url_for
 
 from app.models import User
-from app import db
 
 from . import bp
-from app.forms import RegisterForm
+from app.forms import RegisterForm, SigninForm
 
-@bp.route('/signin')
+@bp.route('/signin', methods=['GET',"POST"])
 def signin():
-    return render_template('signin.jinja')
+    form = SigninForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=form.username.data).first()
+        if user and user.check_password(form.password.data):
+            print(f'{form.username.data} signing in')
+        else:
+            print('user doesn\'t exist or incorrect password')
+
+    return render_template('signin.jinja', form=form)
 
 @bp.route('/register', methods=['GET','POST'])
 def register():
@@ -17,7 +24,8 @@ def register():
         user = User.query.filter_by(username=form.username.data).first()
         email = User.query.filter_by(email=form.email.data).first()
         if not email and not user:
-            u = User(username=form.username.data,email=form.email.data,password=form.password.data)
+            u = User(username=form.username.data,email=form.email.data)
+            u.password = u.hash_password(form.password.data)
             u.commit()
             flash(f"{form.username.data} registered")
             return redirect(url_for("main.home"))
