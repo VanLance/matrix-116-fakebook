@@ -2,11 +2,12 @@ from flask import render_template, g
 
 from . import bp 
 from app import app
-from app.forms import UserSearchForm
+from app.forms import UserSearchForm, SubmitForm
 
 @app.before_request
 def before_request():
     g.user_search_form = UserSearchForm()
+    g.submit_form = SubmitForm()
 
 @bp.route('/')
 def home():

@@ -11,7 +11,7 @@ class RegisterForm(FlaskForm):
 class SigninForm(FlaskForm):
     username = StringField('username', validators=[DataRequired()])
     password = PasswordField('password', validators=[DataRequired()])
-    submit = SubmitField('Register')
+    submit = SubmitField('Sign In')
 
 class PostForm(FlaskForm):
     body = StringField('body', validators=[DataRequired()])
@@ -20,3 +20,6 @@ class PostForm(FlaskForm):
 class UserSearchForm(FlaskForm):
     user = StringField('user', validators=[DataRequired()])
     submit = SubmitField('Search')
+
+class SubmitForm(FlaskForm):
+    submit = SubmitField('Submit')

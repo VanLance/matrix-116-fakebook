@@ -1,10 +1,28 @@
 {% extends "base.jinja" %}
 
 {% block content %}
-<h3>{{ user.username }}'s Page</h3>
+<main class ='row'>
+  <div class="col-6">
+  <h3>{{ user.username }}'s Page</h3>
+    {% for post in user.posts %}
+      <p>{{ post.body }}</p>
+      <small>{{ post.timestamp }}</small>
+    {% endfor %}
 
-{% for post in user.posts %}
-  <p>{{ post.body }}</p>
-  <small>{{ post.timestamp }}</small>
-{% endfor %}
+  </div>
+  <div class="col-3">
+    {% if user.user_id != current_user.user_id %}
+    <form action="{{ url_for('social.follow',username=user.username) }}" method="post">
+      {{ submit_form.hidden_tag() }}
+        <h3>Follow {{ user.username }}</h3>
+        {{ submit_form.submit() }}
+    </form>
+  </div>
+  {% else %}
+    <h2>Followed</h2>
+    {% for followed in current_user.followed %}
+      <p>{{ followed.username }}</p>
+    {% endfor %}
+  {% endif %}
+</main>
 {% endblock %}
