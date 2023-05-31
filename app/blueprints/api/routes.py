@@ -15,7 +15,7 @@ def api_posts():
             'id':post.id,
             'body':post.body, 
             'timestamp':post.timestamp, 
-            'author':post.user_id
+            'author':post.author.username
             })
     return jsonify(result), 200
 
