@@ -29,7 +29,7 @@ def user_posts(username):
               'id':post.id,
               'body':post.body, 
               'timestamp':post.timestamp, 
-              'author':post.user_id
+              'author':post.author.username
               } for post in user.posts]), 200
     return jsonify([{'message':'Invalid Username'}]), 404 
 
