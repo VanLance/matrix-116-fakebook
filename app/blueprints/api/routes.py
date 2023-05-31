@@ -6,8 +6,8 @@ from app.blueprints.api.helpers import token_required
 
 # Recieve All Posts
 @bp.get('/posts')
-@token_required
-def api_posts(user):
+# @token_required
+def api_posts():
     result = []
     posts = Post.query.all()
     for post in posts:

@@ -9,7 +9,6 @@ from app.models import User
 @bp.post('/verifyuser')
 def verify_user():
   content = request.json
-  print(content)
   username= content['username']
   password= content['password']
   user = User.query.filter_by(username=username).first()
