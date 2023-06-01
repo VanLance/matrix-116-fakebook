@@ -21,7 +21,7 @@ def api_posts():
 
 # Recieve Posts from Single User
 @bp.get('/posts/<username>')
-# @token_required
+@token_required
 def user_posts(username):
     user = User.query.filter_by(username=username).first()
     if user:
