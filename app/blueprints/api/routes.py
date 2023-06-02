@@ -22,7 +22,7 @@ def api_posts():
 # Recieve Posts from Single User
 @bp.get('/posts/<username>')
 @token_required
-def user_posts(username):
+def user_posts(user,username):
     user = User.query.filter_by(username=username).first()
     if user:
       return jsonify([{
